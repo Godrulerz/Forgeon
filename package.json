@@ -2,14 +2,14 @@
   "name": "forgeon",
   "version": "1.0.0",
   "description": "Backend for forgeon fitness",
+  "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "dev":"nodemon src/index.js"
   },
   "repository": {
     "type": "git",
-    "repository": {
-    "url": "https://github.com/your-username/forgeon.git"
+    "url": "https://github.com/godrulerz/forgeon.git"
   },
   "author": "Godrulerz (Ashish)",
   "license": "ISC",
