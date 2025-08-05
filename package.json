@@ -8,11 +8,13 @@
   },
   "repository": {
     "type": "git",
-    "url": "javascript , backend , fitnesss"
+    "repository": {
+    "url": "https://github.com/your-username/forgeon.git"
   },
   "author": "Godrulerz (Ashish)",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^3.1.10"
+    "nodemon": "^3.1.10",
+    "prettier": "^3.6.2"
   }
 }
