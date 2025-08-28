@@ -1,0 +1,44 @@
+def handheld_dynamometry():
+    print("=== Handheld Dynamometry Test ===")
+    print("Enter data for each muscle group (type 'done' to finish)\n")
+
+    records = []
+
+    while True:
+        muscle = input("Muscle Group (e.g., Quadriceps, Biceps) or 'done' to stop: ")
+        if muscle.lower() == "done":
+            break
+
+        trial1 = float(input("Trial 1 (kg): "))
+        trial2 = float(input("Trial 2 (kg): "))
+        trial3 = float(input("Trial 3 (kg): "))
+
+        max_force = max(trial1, trial2, trial3)
+
+        coach_notes = input("Coach Notes (Optional): ")
+
+        record = {
+            "Muscle Group": muscle,
+            "Trial 1 (kg)": trial1,
+            "Trial 2 (kg)": trial2,
+            "Trial 3 (kg)": trial3,
+            "Maximum Force (kg)": max_force,
+            "Coach Notes": coach_notes if coach_notes else "-"
+        }
+        records.append(record)
+        print("\n✅ Entry recorded!\n")
+
+    print("\n--- Handheld Dynamometry Results ---")
+    for r in records:
+        print(
+            f"{r['Muscle Group']}: "
+            f"T1={r['Trial 1 (kg)']}kg, "
+            f"T2={r['Trial 2 (kg)']}kg, "
+            f"T3={r['Trial 3 (kg)']}kg → "
+            f"Max Force={r['Maximum Force (kg)']}kg, "
+            f"Notes: {r['Coach Notes']}"
+        )
+
+
+if __name__ == "__main__":
+    handheld_dynamometry()

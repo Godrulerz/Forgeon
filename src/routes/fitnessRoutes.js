@@ -4,8 +4,9 @@ const {
   getModuleById,
   getTestsByCategory,
   getTestById,
-  getAvailableCategories
-} = require('../controllers/fitnessController');
+  getAvailableCategories,
+  evaluateCooperTest
+} = require('../controllers/fitnessController.js');
 
 const router = express.Router();
 
@@ -23,5 +24,8 @@ router.get('/tests/category/:category', getTestsByCategory);
 
 // GET /api/fitness/tests/:testId - Get specific test
 router.get('/tests/:testId', getTestById);
+
+// Evaluation endpoints
+router.post('/health/tests/cooper/evaluate', evaluateCooperTest);
 
 module.exports = router;

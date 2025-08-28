@@ -1,4 +1,5 @@
-const { HealthRelatedFitness } = require('../models');
+// src/controllers/fitnessController.js
+const { HealthRelatedFitness } = require('../models/health.model.js');
 
 const getAllModules = async (req, res) => {
   try {
@@ -115,10 +116,44 @@ const getAvailableCategories = async (req, res) => {
   }
 };
 
+// POST /api/fitness/health/tests/cooper/evaluate
+const evaluateCooperTest = async (req, res) => {
+  try {
+    const { distance, laps_completed } = req.body || {};
+    const numericDistance = Number(distance);
+    if (!Number.isFinite(numericDistance) || numericDistance <= 0) {
+      return res.status(400).json({ success: false, error: 'Invalid distance (m) provided' });
+    }
+
+    const vo2max = (numericDistance - 504.9) / 44.73; // ml/kg/min
+
+    // Simple categorization (male/female norms could be added later)
+    let category = 'average';
+    if (vo2max >= 55) category = 'excellent';
+    else if (vo2max >= 50) category = 'very_good';
+    else if (vo2max >= 45) category = 'good';
+    else if (vo2max < 35) category = 'poor';
+
+    return res.status(200).json({
+      success: true,
+      data: {
+        input: { distance: numericDistance, laps_completed: laps_completed ? Number(laps_completed) : undefined },
+        results: {
+          estimated_vo2max: Number(vo2max.toFixed(2)),
+          category
+        }
+      }
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, error: error.message });
+  }
+};
+
 module.exports = {
   getAllModules,
   getModuleById,
   getTestsByCategory,
   getTestById,
-  getAvailableCategories
+  getAvailableCategories,
+  evaluateCooperTest
 };
