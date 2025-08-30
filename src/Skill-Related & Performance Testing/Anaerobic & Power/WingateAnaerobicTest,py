@@ -1,0 +1,36 @@
+def wingate_outcomes(power_values, body_mass):
+    if not power_values or body_mass <= 0:
+        raise ValueError("Provide valid power values and body mass > 0.")
+
+    peak_power = max(power_values)
+    relative_peak = peak_power / body_mass
+    mean_power = sum(power_values) / len(power_values)
+    lowest_power = min(power_values)
+    fatigue_index = ((peak_power - lowest_power) / peak_power) * 100
+
+    return peak_power, relative_peak, mean_power, fatigue_index
+
+
+def main():
+    print("=== Wingate Anaerobic Test Calculator ===")
+
+    # Get athlete body mass
+    body_mass = float(input("Enter athlete body mass (kg): "))
+
+    # Get power values
+    print("\nEnter power values (Watts) separated by spaces (e.g. 650 640 630 ...):")
+    power_values = list(map(float, input().split()))
+
+    # Calculate results
+    peak_power, relative_peak, mean_power, fatigue_index = wingate_outcomes(power_values, body_mass)
+
+    # Show results
+    print("\n--- Test Results ---")
+    print(f"Peak Power (W): {peak_power:.2f}")
+    print(f"Relative Peak Power (W/kg): {relative_peak:.2f}")
+    print(f"Mean Power (W): {mean_power:.2f}")
+    print(f"Fatigue Index (%): {fatigue_index:.2f}")
+
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,470 @@
+{
+  "info": {
+    "name": "ForgeOn Backend API - Complete Collection",
+    "description": "Complete API collection for ForgeOn Backend including Mental Neural Training and Skill Performance Testing modules",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "BASE_URL",
+      "value": "http://localhost:3000",
+      "type": "string"
+    },
+    {
+      "key": "ATHLETE_ID",
+      "value": "507f1f77bcf86cd799439011",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "🔧 Health Check",
+      "item": [
+        {
+          "name": "Skill Performance Health Check",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/health",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "health"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🧠 Mental Neural Training",
+      "item": [
+        {
+          "name": "Create Drill",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Reaction Time Test\",\n  \"description\": \"Test athlete reaction time to visual stimuli\",\n  \"category\": \"reaction\",\n  \"estimatedDuration\": 300,\n  \"equipmentRequired\": [\"computer\", \"monitor\"],\n  \"instructions\": \"Click when you see the green light\",\n  \"config\": {\n    \"trials\": 10,\n    \"stimulusDelay\": 1000,\n    \"maxResponseTime\": 2000\n  },\n  \"tags\": [\"reaction\", \"cognitive\"],\n  \"normativeData\": {\n    \"excellent\": 200,\n    \"good\": 300,\n    \"average\": 400,\n    \"belowAverage\": 500\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/mental-neural-training/drills",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mental-neural-training", "drills"]
+            }
+          }
+        },
+        {
+          "name": "Start Session",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"drillId\": \"DRILL_ID_FROM_STEP_1\",\n  \"plannedDuration\": 300,\n  \"notes\": \"First reaction time test session\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/mental-neural-training/sessions",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mental-neural-training", "sessions"]
+            }
+          }
+        },
+        {
+          "name": "Execute Python Script",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"drillId\": \"DRILL_ID_FROM_STEP_1\",\n  \"parameters\": {\n    \"trials\": 10,\n    \"stimulusDelay\": 1000\n  }\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/mental-neural-training/execute-drill",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mental-neural-training", "execute-drill"]
+            }
+          }
+        },
+        {
+          "name": "Complete Session",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"results\": [\n    {\n      \"trialNumber\": 1,\n      \"stimulusType\": \"visual\",\n      \"reactionTime\": 250,\n      \"accuracy\": true,\n      \"responseTime\": 250\n    },\n    {\n      \"trialNumber\": 2,\n      \"stimulusType\": \"visual\",\n      \"reactionTime\": 280,\n      \"accuracy\": true,\n      \"responseTime\": 280\n    }\n  ],\n  \"endedAt\": \"2024-01-15T10:30:00Z\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/mental-neural-training/sessions/SESSION_ID_FROM_STEP_2/complete",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mental-neural-training", "sessions", "SESSION_ID_FROM_STEP_2", "complete"]
+            }
+          }
+        },
+        {
+          "name": "Get Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/mental-neural-training/analytics/athlete/{{ATHLETE_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "mental-neural-training", "analytics", "athlete", "{{ATHLETE_ID}}"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🏃‍♂️ Skill Performance Testing",
+      "item": [
+        {
+          "name": "Neuromuscular Readiness",
+          "item": [
+            {
+              "name": "Create Daily Readiness Assessment",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T08:00:00Z\",\n  \"sleepQuality\": 8,\n  \"fatigue\": 3,\n  \"muscleSoreness\": 4,\n  \"stress\": 2,\n  \"mood\": 7\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/neuromuscular-readiness/daily-readiness",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "neuromuscular-readiness", "daily-readiness"]
+                }
+              }
+            },
+            {
+              "name": "Get All Daily Readiness Assessments",
+              "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/neuromuscular-readiness/daily-readiness",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "neuromuscular-readiness", "daily-readiness"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Functional Fitness",
+          "item": [
+            {
+              "name": "Create Custom Obstacle Circuit",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T09:00:00Z\",\n  \"circuitConfig\": {\n    \"obstacles\": [\"hurdle\", \"cone\", \"ladder\", \"wall\"],\n    \"targetTime\": 120,\n    \"penaltyTime\": 10\n  },\n  \"results\": {\n    \"rawTime\": 125,\n    \"penalties\": 2,\n    \"penaltyTime\": 20,\n    \"finalAdjustedTime\": 145\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/functional-fitness/custom-obstacle-circuit",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "functional-fitness", "custom-obstacle-circuit"]
+                }
+              }
+            },
+            {
+              "name": "Execute Custom Obstacle Circuit (Python)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"circuitConfig\": {\n    \"obstacles\": [\"hurdle\", \"cone\", \"ladder\"],\n    \"targetTime\": 90,\n    \"penaltyTime\": 5\n  },\n  \"performanceData\": {\n    \"rawTime\": 95,\n    \"penalties\": 1\n  }\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/functional-fitness/custom-obstacle-circuit/execute",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "functional-fitness", "custom-obstacle-circuit", "execute"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Reaction, Coordination & Reflex",
+          "item": [
+            {
+              "name": "Create Simple Reaction Time Test",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T10:00:00Z\",\n  \"testType\": \"light\",\n  \"trials\": [\n    {\n      \"stimulusType\": \"light\",\n      \"reactionTime\": 220,\n      \"accuracy\": true\n    },\n    {\n      \"stimulusType\": \"light\",\n      \"reactionTime\": 195,\n      \"accuracy\": true\n    }\n  ]\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/reaction-coordination/simple-reaction-time",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "reaction-coordination", "simple-reaction-time"]
+                }
+              }
+            },
+            {
+              "name": "Execute Simple Reaction Time Test (Python)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"testType\": \"light\",\n  \"trials\": 5,\n  \"stimulusDelay\": 1000\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/reaction-coordination/simple-reaction-time/execute",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "reaction-coordination", "simple-reaction-time", "execute"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Speed, Acceleration & Agility",
+          "item": [
+            {
+              "name": "Create Illinois Agility Test",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T11:00:00Z\",\n  \"time\": 15.2,\n  \"gender\": \"male\",\n  \"age\": 25,\n  \"classification\": \"excellent\",\n  \"notes\": \"Good form, no penalties\"\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/speed-agility/illinois-agility-test",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "speed-agility", "illinois-agility-test"]
+                }
+              }
+            },
+            {
+              "name": "Execute Illinois Agility Test (Python)",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"time\": 16.8,\n  \"gender\": \"male\",\n  \"age\": 25\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/speed-agility/illinois-agility-test/execute",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "speed-agility", "illinois-agility-test", "execute"]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "name": "Anaerobic & Power",
+          "item": [
+            {
+              "name": "Create Vertical Jump Test",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T12:00:00Z\",\n  \"jumpHeight\": 65,\n  \"unit\": \"cm\",\n  \"jumpType\": \"countermovement\",\n  \"attempts\": 3,\n  \"bestJump\": 65,\n  \"notes\": \"Good explosive power\"\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/anaerobic-power/vertical-jump",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "anaerobic-power", "vertical-jump"]
+                }
+              }
+            },
+            {
+              "name": "Create Wingate Anaerobic Test",
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"date\": \"2024-01-15T13:00:00Z\",\n  \"peakPower\": 850,\n  \"meanPower\": 650,\n  \"fatigueIndex\": 12.5,\n  \"testDuration\": 30,\n  \"bodyWeight\": 75,\n  \"notes\": \"Excellent anaerobic capacity\"\n}"
+                },
+                "url": {
+                  "raw": "{{BASE_URL}}/api/skill-performance/anaerobic-power/wingate-anaerobic-test",
+                  "host": ["{{BASE_URL}}"],
+                  "path": ["api", "skill-performance", "anaerobic-power", "wingate-anaerobic-test"]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "📊 Analytics & Dashboard",
+      "item": [
+        {
+          "name": "Generate Analytics",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"athleteId\": \"{{ATHLETE_ID}}\",\n  \"startDate\": \"2024-01-01T00:00:00Z\",\n  \"endDate\": \"2024-01-31T23:59:59Z\",\n  \"categories\": [\"all\"]\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/analytics/generate",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "analytics", "generate"]
+            }
+          }
+        },
+        {
+          "name": "Get Athlete Analytics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/analytics/{{ATHLETE_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "analytics", "{{ATHLETE_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "Get Dashboard Stats",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/dashboard/{{ATHLETE_ID}}",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "dashboard", "{{ATHLETE_ID}}"]
+            }
+          }
+        },
+        {
+          "name": "Get All Tests for Athlete",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/athlete/{{ATHLETE_ID}}/all-tests",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "athlete", "{{ATHLETE_ID}}", "all-tests"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "🔄 Generic CRUD Operations",
+      "item": [
+        {
+          "name": "Update Test Record",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"jumpHeight\": 68,\n  \"notes\": \"Improved from previous attempt\"\n}"
+            },
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/anaerobic-power/vertical-jump/VERICAL_JUMP_ID",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "anaerobic-power", "vertical-jump", "VERICAL_JUMP_ID"]
+            }
+          }
+        },
+        {
+          "name": "Delete Test Record",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{BASE_URL}}/api/skill-performance/anaerobic-power/vertical-jump/VERICAL_JUMP_ID",
+              "host": ["{{BASE_URL}}"],
+              "path": ["api", "skill-performance", "anaerobic-power", "vertical-jump", "VERICAL_JUMP_ID"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
