@@ -943,5 +943,5 @@ This project is part of the ForgeOn athletic performance system. All rights rese
 
 ---
 
-*Last Updated: January 2024*
+*Last Updated: August 2025*
 *Version: 1.0.0* 
